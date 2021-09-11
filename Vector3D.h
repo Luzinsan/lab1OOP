@@ -1,65 +1,62 @@
 #pragma once
 #include <iostream>
 
-class Vector3D
+namespace luzalex
 {
-private:
-    double m_x, m_y, m_z;
+    class Vector3D
+    {
+    private:
+        double m_x, m_y, m_z;
+        static int m_idVector3D;
+        int m_id;
 
-public:
-    //Конструктор для списка uniform инициализации 1) нуль-вектора по умолчанию или 2) вектора с пользовательскими значениями
-    Vector3D(double x = 0.0, double y = 0.0, double z = 0.0): m_x{ x }, m_y{ y }, m_z{ z }
-    { std::cout << "Constructor - Done\n"; }
+    public:
+        //РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РґР»СЏ СЃРїРёСЃРєР° uniform РёРЅРёС†РёР°Р»РёР·Р°С†РёРё 1) РЅСѓР»СЊ-РІРµРєС‚РѕСЂР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РёР»Рё 2) РІРµРєС‚РѕСЂР° СЃ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёРјРё Р·РЅР°С‡РµРЅРёСЏРјРё
+        Vector3D(double x = 0.0, double y = 0.0, double z = 0.0) : m_x{ x }, m_y{ y }, m_z{ z }, m_id{ m_idVector3D++ }
+        {  std::cout << "Constructor - Done " << m_id << std::endl; }
 
-    //Деструктор
-    ~Vector3D(){ std::cout << "Destructor - Done\n"; }
+        //Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
+        ~Vector3D() { std::cout << "Destructor - Done " << m_id << std::endl; }
 
-    //Геттер координаты x
-    double getX() const;
-    //Геттер координаты y
-    double getY() const;
-    //Геттер координаты z
-    double getZ() const;
+        //Р“РµС‚С‚РµСЂ РєРѕРѕСЂРґРёРЅР°С‚С‹ x
+        const double getX() const;
+        //Р“РµС‚С‚РµСЂ РєРѕРѕСЂРґРёРЅР°С‚С‹ y
+        const double getY() const;
+        //Р“РµС‚С‚РµСЂ РєРѕРѕСЂРґРёРЅР°С‚С‹ z
+        const double getZ() const;
 
-    //Сеттер координат вектора
-    Vector3D& setItems(double x = 0, double y = 0, double z = 0);
+        //РЎРµС‚С‚РµСЂ РєРѕРѕСЂРґРёРЅР°С‚ РІРµРєС‚РѕСЂР°
+        const Vector3D& setItems(double x = 0, double y = 0, double z = 0);
+        //Р’С‹С‡РёСЃР»РµРЅРёРµ РјРѕРґСѓР»СЏ РІРµРєС‚РѕСЂР°
+        const double module() const;
+        //РљРѕРїРёСЂРѕРІР°РЅРёРµ РІРµРєС‚РѕСЂР° - РІРѕР·РІСЂР°С‰Р°РµС‚ С†РµР»РµРІРѕР№ РІРµРєС‚РѕСЂ
+        const Vector3D& copyVector(Vector3D& toVec) const;
+        //РЈРјРЅРѕР¶РµРЅРёРµ РІРµРєС‚РѕСЂР° РЅР° СЃРєР°Р»СЏСЂ
+        const Vector3D& mltpToScal(const double scal);
+        //РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР°* РґР»СЏ СѓРјРЅРѕР¶РµРЅРёСЏ РІРµРєС‚РѕСЂР° РЅР° СЃРєР°Р»СЏСЂ
+        const Vector3D& operator*(const double scal);
+        //РќРѕСЂРјРёСЂРѕРІР°РЅРёРµ РІРµРєС‚РѕСЂР°
+        const Vector3D& normVec();
+        //Р’С‹РІРѕРґ РІ РєРѕРЅСЃРѕР»СЊ С‚СЂС‘С…РјРµСЂРЅРѕРіРѕ РІРµРєС‚РѕСЂР°
+        const Vector3D& print() const;
 
-    //Вычисление модуля вектора
-    double module() const;
-
-    //Копирование вектора - возвращает копируемый вектор
-    Vector3D& copyVector(Vector3D& toVec);
-
-    //Умножение вектора на скаляр
-    Vector3D& mltpToScal(double scal);
-
-    //Нормирование вектора
-    Vector3D& normVec();
-
-    //Двужественная функция перегрузки оператора+ для трёхмерных векторов
-    friend Vector3D operator+(Vector3D& A, Vector3D& B);
-
-    //Двужественная функция перегрузки оператора- для трёхмерных векторов
-    friend Vector3D operator-(Vector3D& A, Vector3D& B);
-
-    //Двужественная функция перегрузки оператора* для векторного произведения трёхмерных векторов
-    friend Vector3D operator*(const Vector3D& A, const Vector3D& B);
-
-    //Дружественная функция, возвращающая скалярное произведение друх трёхмерных векторов
-    friend double scalarProduct(const Vector3D& A, const Vector3D& B);
-
-    //Дружественная функция, возвращающая косинус угла друх трёхмерных векторов
-    friend double cos(const Vector3D& A, const Vector3D& B);
-
-    //Дружественная функция, возвращающая синус угла друх трёхмерных векторов
-    friend double sin(const Vector3D& A, const Vector3D& B);
-
-    //Дружественная функция, возвращающая величину угла между друмя трёхмерными векторами
-    friend double valAngle(const Vector3D& A, const Vector3D& B);
-
-    friend std::ostream& operator<<(std::ostream& out, const Vector3D& vec);
-
-    friend std::istream& operator>>(std::istream& in, Vector3D& vec);
-
-    Vector3D& print();
-};
+        //Р”СЂСѓР¶РµСЃС‚РІРµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РїРµСЂРµРіСЂСѓР·РєРё РѕРїРµСЂР°С‚РѕСЂР°+ РґР»СЏ С‚СЂС‘С…РјРµСЂРЅС‹С… РІРµРєС‚РѕСЂРѕРІ
+        friend const Vector3D operator+(const Vector3D& A, const Vector3D& B);
+        //Р”СЂСѓР¶РµСЃС‚РІРµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РїРµСЂРµРіСЂСѓР·РєРё РѕРїРµСЂР°С‚РѕСЂР°- РґР»СЏ С‚СЂС‘С…РјРµСЂРЅС‹С… РІРµРєС‚РѕСЂРѕРІ
+        friend const Vector3D operator-(const Vector3D& A, const Vector3D& B);
+        //Р”СЂСѓР¶РµСЃС‚РІРµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РїРµСЂРµРіСЂСѓР·РєРё РѕРїРµСЂР°С‚РѕСЂР°* РґР»СЏ РІРµРєС‚РѕСЂРЅРѕРіРѕ РїСЂРѕРёР·РІРµРґРµРЅРёСЏ С‚СЂС‘С…РјРµСЂРЅС‹С… РІРµРєС‚РѕСЂРѕРІ
+        friend const Vector3D operator*(const Vector3D& A, const Vector3D& B);
+        //Р”СЂСѓР¶РµСЃС‚РІРµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ, РІРѕР·РІСЂР°С‰Р°СЋС‰Р°СЏ СЃРєР°Р»СЏСЂРЅРѕРµ РїСЂРѕРёР·РІРµРґРµРЅРёРµ РґСЂСѓС… С‚СЂС‘С…РјРµСЂРЅС‹С… РІРµРєС‚РѕСЂРѕРІ
+        friend const double scalarProduct(const Vector3D& A, const Vector3D& B);
+        //Р”СЂСѓР¶РµСЃС‚РІРµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ, РІРѕР·РІСЂР°С‰Р°СЋС‰Р°СЏ РєРѕСЃРёРЅСѓСЃ СѓРіР»Р° РјРµР¶РґСѓ РґРІСѓРјСЏ С‚СЂС‘С…РјРµСЂРЅС‹РјРё РІРµРєС‚РѕСЂР°РјРё
+        friend const double cos(const Vector3D& A, const Vector3D& B);
+        //Р”СЂСѓР¶РµСЃС‚РІРµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ, РІРѕР·РІСЂР°С‰Р°СЋС‰Р°СЏ СЃРёРЅСѓСЃ СѓРіР»Р° РјРµР¶РґСѓ РґРІСѓРјСЏ С‚СЂС‘С…РјРµСЂРЅС‹РјРё РІРµРєС‚РѕСЂР°РјРё
+        friend const double sin(const Vector3D& A, const Vector3D& B);
+        //Р”СЂСѓР¶РµСЃС‚РІРµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ, РІРѕР·РІСЂР°С‰Р°СЋС‰Р°СЏ РІРµР»РёС‡РёРЅСѓ СѓРіР»Р° РјРµР¶РґСѓ РґСЂСѓРјСЏ С‚СЂС‘С…РјРµСЂРЅС‹РјРё РІРµРєС‚РѕСЂР°РјРё
+        friend const double valAngle(const Vector3D& A, const Vector3D& B);
+        //Р”СЂСѓР¶РµСЃС‚РІРµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РїРµСЂРµРіСЂСѓР·РєРё РѕРїРµСЂР°С‚РѕСЂР°<< РґР»СЏ РІС‹РІРѕРґР° РІ РєРѕРЅСЃРѕР»СЊ С‚СЂС‘С…РјРµСЂРЅС‹С… РІРµРєС‚РѕСЂРѕРІ
+        friend std::ostream& operator<<(std::ostream& out, const Vector3D& vec);
+        //Р”СЂСѓР¶РµСЃС‚РІРµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РїРµСЂРµРіСЂСѓР·РєРё РѕРїРµСЂР°С‚РѕСЂР°>> РґР»СЏ РІРІРѕРґР° С‡РµСЂРµР· РєРѕРЅСЃРѕР»СЊ С‚СЂС‘С…РјРµСЂРЅС‹С… РІРµРєС‚РѕСЂРѕРІ
+        friend std::istream& operator>>(std::istream& in, Vector3D& vec);
+    };
+}
