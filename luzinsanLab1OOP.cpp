@@ -1,5 +1,5 @@
-﻿#include "Vector3D.h"
-
+#include "Vector3D.h"
+using namespace luzalex;
 
 int main()
 {
@@ -35,7 +35,7 @@ int main()
 
 
     std::cin >> B;
-    std::cout << "\nДвуместные операции над векторами А и B с скалярных вечилин \n"
+    std::cout << "\nДвуместные операции над векторами А и B с получением скалярных величин \n"
         << "Скалярное произведение: (" << A << ", " << B << ") = " << scalarProduct(A, B) << std::endl
         << "cos = "<< cos(A, B) << std::endl
         << "sin = " << sin(A, B) << std::endl
