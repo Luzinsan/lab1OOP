@@ -29,6 +29,7 @@ namespace luzalex
         return out;
     }
 
+
     std::istream& operator>>(std::istream& in, Vector3D& vec)
     {
         std::cout << "x = ";
@@ -42,23 +43,16 @@ namespace luzalex
         return in;
     }
 
+
     const double scalarProduct(const Vector3D& A, const Vector3D& B)
-    {
-        return A.m_x * B.m_x + A.m_y * B.m_y + A.m_z * B.m_z;
-    }
+    { return A.m_x * B.m_x + A.m_y * B.m_y + A.m_z * B.m_z; }
 
     const double cos(const Vector3D& A, const Vector3D& B)
-    {
-        return scalarProduct(A, B) / (A.module() * B.module());
-    }
+    { return scalarProduct(A, B) / (A.module() * B.module()); }
 
     const double sin(const Vector3D& A, const Vector3D& B)
-    {
-        return (A * B).module() / (A.module() * B.module());
-    }
+    { return (A * B).module() / (A.module() * B.module()); }
 
     const double valAngle(const Vector3D& A, const Vector3D& B)
-    {
-        return atan2(sin(A, B), cos(A, B)) * 180 / M_PI;
-    }
+    { return atan2(sin(A, B), cos(A, B)) * 180 / M_PI; }
 }
