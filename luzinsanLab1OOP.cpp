@@ -1,5 +1,5 @@
 #include "Vector3D.h"
-using namespace luzalex;
+using namespace luMath;
 
 int main()
 {
@@ -7,6 +7,9 @@ int main()
     Vector3D A{1,2,3};
     std::cout << "Тестирование функций доступа к членам класса\n"
               <<"---> Сеттеры координат (Запись данных)\n";
+    A.setX(4); 
+    A.setY(5);
+    A.setZ(5);
     std::cin >> A;
 
     std::cout << "---> Геттеры координат (Чтение данных)\n"
@@ -16,14 +19,14 @@ int main()
 
     Vector3D B;
     std::cout << "\nКопирование вектора " << A << " в вектор " << B << std::endl;
-    std::cout << "Результат: " << A.copyVector(B) << std::endl;
+    std::cout << "Результат: " << B.copyVector(A) << std::endl;
 
     std::cout << "\nУмножение вектора на скаляр.\n"
               << "Введите скалярное значение: ";
     double scal;
     std::cin >> scal;
     std::cout << B << " * " << scal << " = ";
-    B.mltpToScal(scal).print();
+    std::cout << B * scal;
 
     std::cout << "\nНормирование вектора---> Результат: " << B.normVec() << std::endl;
     std::cout << "Длина: " << B.module() << std::endl;
@@ -41,6 +44,7 @@ int main()
         << "sin = " << sin(A, B) << std::endl
         << "Величина угла в градусах между векторами А и B в пределах [-180; 180]: " << valAngle(A, B) << std::endl;
 
+   
 
     return 0;
 }
